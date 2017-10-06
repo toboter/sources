@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>
+    Babylon-Sources
+    <small>sources.babylon-online.org</small>
+  </h2>
+</div>
+
+
+<div class="row" style="margin:60px 0;">
+  <div class="col-md-9 col-centered">
+    <%= render "shared/search" %>
+  </div>
+</div>
+
+
+<p>
+  Quellen. Archivmaterialien zu Babylon.
+</p>
+
+<div class="row" style="margin:60px 0;">
+  <%= content_tag :div, class: 'col-md-8 col-md-offset-4 tag-cloud' do %>
+    <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+      <%= link_to tag.name, '', id: tag.name, class: css_class %>
+    <% end %>
+  <% end if @tags %>
+</div>
