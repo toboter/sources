@@ -18,9 +18,22 @@
 </p>
 
 <div class="row" style="margin:60px 0;">
-  <%= content_tag :div, class: 'col-md-8 col-md-offset-4 tag-cloud' do %>
+  <%= content_tag :div, class: 'col-md-4' do %>
+    <%= pie_chart Archive.all.map{|a| [a.ident_name, a.descendants.count] }.to_h %>
+  <% end %>
+  <%= content_tag :div, class: 'col-md-8' do %>
+    <%= column_chart Subject.group(:type).count %>
+  <% end %>
+  <%= content_tag :div, class: 'col-md-12 tag-cloud' do %>
     <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
       <%= link_to tag.name, '', id: tag.name, class: css_class %>
     <% end %>
   <% end if @tags %>
 </div>
+
+https://devblast.com/b/single-table-inheritance-with-rails-4-part-1/ <br>
+
+http://yousefourabi.com/blog/2014/03/rails-postgresql/ <br>
+http://nandovieira.com/using-postgresql-and-jsonb-with-ruby-on-rails <br>
+
+https://github.com/jasonlong/geo_pattern -> babili

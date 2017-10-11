@@ -55,7 +55,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem "jsonb_accessor", "~> 1.0.0"
 gem 'bootstrap-sass'
+gem 'toastr-rails'
 gem 'simple_form'
 gem 'friendly_id'
 gem "select2-rails"     # https://select2.github.io/examples.html
@@ -63,11 +65,14 @@ gem "font-awesome-rails"
 gem 'cocoon'
 gem 'will_paginate-bootstrap'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'search_cop'        # https://github.com/mrkamel/search_cop
-gem 'filterrific'
+# gem 'search_cop'        # https://github.com/mrkamel/search_cop
+gem 'searchkick'          # https://github.com/ankane/searchkick
+# gem 'filterrific'
 gem 'rest-client'
 gem 'cancancan'
 gem 'browser'
+gem 'closure_tree'
+gem "chartkick"
 
 # Auth & Babili
 gem 'marduk', path: '/home/tschmidt/dev/gem_dev/marduk'

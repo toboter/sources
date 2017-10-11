@@ -11,7 +11,11 @@ Things you may want to cover:
 
 * Configuration
 
-* Database creation
+* Database creation:
+User needs Su privileges:
+`GRANT ALL PRIVILEGES ON DATABASE "sources_development" to rails;`
+User needs to be Superuser:
+`ALTER ROLE rails SUPERUSER;`
 
 * Database initialization
 

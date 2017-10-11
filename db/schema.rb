@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005165852) do
+ActiveRecord::Schema.define(version: 20171009115355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "comment_hierarchies", id: false, force: :cascade do |t|
     t.integer "ancestor_id", null: false
@@ -80,6 +81,26 @@ ActiveRecord::Schema.define(version: 20171005165852) do
     t.index ["resource_type", "resource_id"], name: "index_share_models_on_resource_type_and_resource_id"
     t.index ["shared_from_type", "shared_from_id"], name: "index_share_models_on_shared_from_type_and_shared_from_id"
     t.index ["shared_to_type", "shared_to_id"], name: "index_share_models_on_shared_to_type_and_shared_to_id"
+  end
+
+  create_table "subject_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id", null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations", null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "subject_anc_desc_idx", unique: true
+    t.index ["descendant_id"], name: "subject_desc_idx"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "slug"
+    t.string "identifier_stable"
+    t.string "identifier_temp"
+    t.string "type"
+    t.jsonb "type_properties"
+    t.integer "parent_id"
+    t.text "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

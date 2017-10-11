@@ -1,0 +1,23 @@
+<div id="_results">
+
+  <div class="collapse" id="record-access-settings">
+    <%= share_multiple_with(Subject) %>
+  </div>
+
+  <div class="list-group">
+    <% subjects.each do |subject| %>
+      <%= link_to sti_subject_path(subject.type, subject), remote: !browser.device.mobile?, class: "list-group-item" do %>
+        <%= content_tag :div, style: "#{'padding-left:'+(15*subject.depth).to_s+'px' if params[:search].blank?}" do %>
+          <%= fa_icon(subject.try(:icon)) %>
+          <strong><%= subject.ident_name %></strong>
+          <%= content_tag :span, subject.descendants.count, class: 'pull-right' %>
+          <br/>
+          <%= subject.type %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="pagination-results">
+    <%= will_paginate subjects, params: params.merge({filterrific: nil}), renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

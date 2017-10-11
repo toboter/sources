@@ -1,0 +1,49 @@
+<% title "Objects", false %>
+
+<div class="row">
+  <div class="col-md-12" style="margin:10px 0;">
+    <%= form_tag subjects_path, :method => 'get', remote: true do |f| %>
+      <div class="form-inline row">
+        <div class="form-group col-md-8 col-sm-8">
+          <div class="input-group" style="width:100%">
+            <span class="input-group-addon" style="width:38px;"><%= link_to fa_icon('search'), help_path(anchor: 'searching') %></span>
+            <%= search_field_tag 'search', params[:search], placeholder: "Search in all fields", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1">
+          <%= select_tag 'sorted_by', options_for_select(Subject.options_for_sorted_by, params[:sorted_by]), class: 'form-control pull-right', onchange: "this.form.submit()" %>
+        </div>
+      </div>
+    <% end %> <!-- filterrific form end -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7">
+
+    <div class="well" style="padding:10px 10px;">
+      <span id="page-result-info">
+        <%= page_entries_info @subjects, model: 'Subject' %>
+      </span>
+      <%= link_to('Reset', subjects_path, class: 'pull-right btn btn-sm btn-default', style: 'margin-top: -2px;line-height:1;') %>
+    </div>
+    <%= render(partial: 'subjects/list', locals: { subjects: @subjects }) if @subjects.any? %>
+    <div style="margin-top: 20px; margin-bottom: 10px;">
+      <%= render 'shared/per_page' %>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <%= content_tag :div, class: 'clearfix' do %>
+      <% Subject.types.each do |type| %>
+        <%= link_to type, sti_subject_path(type) %>
+      <% end %>
+      <br>
+      <%= link_to "New #{@type}", sti_subject_path(@type, nil, :new) %>
+    <% end if current_user %>
+
+    <%= content_tag :div, id: "show-target", data: {spy: 'affix', 'offset-top': "60"} do %>
+      <%= render partial: 'subjects/show', locals: { subject: @subjects.first }%>
+    <% end if !browser.device.mobile? &&  @subjects.any? %>
+  </div>
+</div>

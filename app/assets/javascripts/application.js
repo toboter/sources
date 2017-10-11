@@ -10,13 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //= require jquery
 //= require jquery_ujs
+//= require toastr
 //= require bootstrap
 //= require select2-full
 //= require cocoon
-//= require filterrific/filterrific-jquery
 //= require bootstrap-markdown-bundle
+//= require Chart.bundle
+//= require chartkick
 //= require turbolinks
 //= require_tree .
