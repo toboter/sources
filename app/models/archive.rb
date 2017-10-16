@@ -3,7 +3,9 @@
 class Archive < Subject
   jsonb_accessor :type_properties,
     title: :string,
-    holder: :string
+    holder: :string,
+    contact: :text    
+
 
   def self.subtypes
     %w(Collection Folder Letter)

@@ -6,7 +6,7 @@
 
   <div class="list-group">
     <% subjects.each do |subject| %>
-      <%= link_to sti_subject_path(subject.type, subject), remote: !browser.device.mobile?, class: "list-group-item" do %>
+      <%= link_to subject_path(subject), remote: !browser.device.mobile?, class: "list-group-item" do %>
         <%= content_tag :div, style: "#{'padding-left:'+(15*subject.depth).to_s+'px' if params[:search].blank?}" do %>
           <%= fa_icon(subject.try(:icon)) %>
           <strong><%= subject.ident_name %></strong>

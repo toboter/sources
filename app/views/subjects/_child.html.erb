@@ -1,0 +1,18 @@
+<%= content_tag :div, id: "object-#{@subject.id}-child-object-#{child.id}", class: '', style: 'margin-left:20px;' do %>
+  <h4 class="text-muted">
+    <%= fa_icon(child.icon) %>
+    <%= link_to child.identifier_stable, child %>
+  </h4>
+  <%= content_tag :p, content_tag(:small, child.remarks), class: 'text-muted' if child.remarks %>
+  <table class="table table-striped">
+    <tbody>
+      <% child.type_properties.each do |k,v|%>
+        <%= content_tag :tr do %>
+          <th><%= k.humanize %>:</th>
+          <td><%= link_to v, subjects_path(search: v) %></td>
+        <% end if v %>
+      <% end if child.type_properties %>
+    </tbody>
+  </table>
+  <%= render partial: "child", collection: child.children if (child.depth - @subject.depth < 2) %>
+<% end %>

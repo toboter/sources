@@ -14,7 +14,7 @@
           <%= select_tag 'sorted_by', options_for_select(Subject.options_for_sorted_by, params[:sorted_by]), class: 'form-control pull-right', onchange: "this.form.submit()" %>
         </div>
       </div>
-    <% end %> <!-- filterrific form end -->
+    <% end %> 
   </div>
 </div>
 
@@ -35,11 +35,18 @@
 
   <div class="col-md-5">
     <%= content_tag :div, class: 'clearfix' do %>
-      <% Subject.types.each do |type| %>
-        <%= link_to type, sti_subject_path(type) %>
-      <% end %>
-      <br>
-      <%= link_to "New #{@type}", sti_subject_path(@type, nil, :new) %>
+      <%= content_tag :div, id: 'sidebar-btn-add-section', class: 'btn-group' do %>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= fa_icon("plus") %> New <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <% for type in Subject.types do %>
+            <%= content_tag :li, link_to(type, sti_subject_path(type, nil, :new)) %>
+          <% end %>    
+        </ul>
+      <% end if can? :create, Subject %>
+      <%= link_to fa_icon('share-alt', text: 'Sharing'),"#record-access-settings", class: 'btn btn-warning', data: {toggle: 'collapse'} if can_administrate? %>
+      <hr>
     <% end if current_user %>
 
     <%= content_tag :div, id: "show-target", data: {spy: 'affix', 'offset-top': "60"} do %>

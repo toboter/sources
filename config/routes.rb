@@ -4,11 +4,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :new, :create, :destroy]
   end
   # 'concerns: :commentable' needs to be added to any resource where nabu is included.
-  resources :subjects, path: 'objects', concerns: :commentable
-  resources :archives, controller: 'subjects', type: 'Archive' 
-  resources :collections, controller: 'subjects', type: 'Collection' 
-  resources :folders, controller: 'subjects', type: 'Folder'
-  resources :letters, controller: 'subjects', type: 'Letter'
+  resources :subjects, path: 'objects'
+  resources :archives, controller: 'subjects', type: 'Archive', concerns: :commentable
+  resources :collections, controller: 'subjects', type: 'Collection', concerns: :commentable
+  resources :folders, controller: 'subjects', type: 'Folder', concerns: :commentable
+  resources :letters, controller: 'subjects', type: 'Letter', concerns: :commentable
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do

@@ -2,7 +2,10 @@
 
 class Folder < Subject
   jsonb_accessor :type_properties,
-    title: :string
+    title: :string,
+    creator: :string,
+    year: :string,
+    content_count: :string
 
   def self.subtypes
     %w(Letter)

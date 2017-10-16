@@ -5,3 +5,4 @@ $("#_results").html("<%= js %>");
 $("#page-result-info").html("<%= escape_javascript(page_entries_info @subjects, model: 'Subject') %>");
 $('#show-target').empty();
 $('#show-target').append('<%= j render(partial: 'subjects/show', locals: {subject: @subjects.first}) %>');
+$(window.location.replace("<%= subjects_path(search: params[:search]) %>"));

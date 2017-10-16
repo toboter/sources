@@ -1,7 +1,7 @@
 PATH
   remote: /home/tschmidt/dev/gem_dev/enki
   specs:
-    enki (0.1.0.beta)
+    enki (0.1.1.beta)
       rails
       shareable_models
 

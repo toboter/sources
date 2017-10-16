@@ -1,7 +1,28 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <%= link_to subject.inspect, subject %>
+    <% if subject %>
+      <%= content_tag :p, fa_icon('link')+' '+link_to(subject_url(subject), subject_url(subject)) %>
+      <%= content_tag :p, fa_icon(subject.icon)+' '+link_to(subject.type, subjects_path('search': subject.type)) %>
 
+      <%= link_to(fa_icon("edit", text: 'Edit'), sti_subject_path(subject.type, subject, :edit), class: 'btn btn-sm btn-warning pull-right', style: 'margin-top: 5px;') if can? :edit, subject %>
+      <%= content_tag :h3, link_to("#{subject.ident_name}", sti_subject_path(subject.type, subject)) %>
+  
+      <table class="table table-striped">
+        <tbody>
+          <% subject.type_properties.each do |k,v|%>
+            <%= content_tag :tr do %>
+              <th><%= k.humanize %>:</th>
+              <td><%= link_to v, subjects_path(search: v) %></td>
+            <% end %>
+          <% end if subject.type_properties %>
+
+        </tbody>
+      </table>
+
+      <%= content_tag :div do %>
+
+      <% end %>
+    <% end %>
   </div>
 </div>

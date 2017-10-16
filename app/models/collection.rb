@@ -2,7 +2,8 @@
 
 class Collection < Subject
   jsonb_accessor :type_properties,
-    title: :string
+    title: :string,
+    description: :text
 
   def self.subtypes
     %w(Folder Letter)
