@@ -1,12 +1,14 @@
-PATH
-  remote: /home/tschmidt/dev/gem_dev/enki
+GIT
+  remote: https://github.com/toboter/enki.git
+  revision: 73bb7a9e0e935760fe0cc7d215543240f8b9c2eb
   specs:
     enki (0.1.1.beta)
       rails
       shareable_models
 
-PATH
-  remote: /home/tschmidt/dev/gem_dev/marduk
+GIT
+  remote: https://github.com/toboter/marduk.git
+  revision: 062f40c7e522313e9ab26b0b0c29df0fbfdba199
   specs:
     marduk (0.2.0.beta)
       active_model_serializers (~> 0.10.0)
@@ -15,8 +17,9 @@ PATH
       rest-client
       simple_form
 
-PATH
-  remote: /home/tschmidt/dev/gem_dev/nabu
+GIT
+  remote: https://github.com/toboter/nabu.git
+  revision: 782c2b5e5cc65e8c94c760a90f84db105e9f26d2
   specs:
     nabu (0.1.0.beta)
       bootstrap-sass (~> 3.3.6)

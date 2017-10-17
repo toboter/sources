@@ -75,16 +75,16 @@ gem 'closure_tree'
 gem "chartkick"
 
 # Auth & Babili
-gem 'marduk', path: '/home/tschmidt/dev/gem_dev/marduk'
-# gem 'marduk', git: 'https://github.com/toboter/marduk.git'
+# gem 'marduk', path: '/home/tschmidt/dev/gem_dev/marduk'
+gem 'marduk', git: 'https://github.com/toboter/marduk.git'
 
 # Record Sharing
-gem 'enki', path: '/home/tschmidt/dev/gem_dev/enki'
-# gem 'enki', git: 'https://github.com/toboter/enki.git'
+#gem 'enki', path: '/home/tschmidt/dev/gem_dev/enki'
+gem 'enki', git: 'https://github.com/toboter/enki.git'
 
 # Comments
-gem 'nabu', path: '/home/tschmidt/dev/gem_dev/nabu'
-#gem 'nabu', git: 'https://github.com/toboter/nabu.git'
+#gem 'nabu', path: '/home/tschmidt/dev/gem_dev/nabu'
+gem 'nabu', git: 'https://github.com/toboter/nabu.git'
 gem 'rails-bootstrap-markdown'
 
 ruby '2.3.1'
