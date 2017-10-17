@@ -1,20 +1,31 @@
 class Subject < ApplicationRecord
-  # extend FriendlyId
+  extend FriendlyId
   searchkick
   include Nabu
   include Enki
   has_closure_tree
 
   after_commit :reindex_descendants
+  after_save :reslug_descendants, if: :identifier_stable_changed?
+  friendly_id :slug_name, use: :history
 
   validates :type, presence: true
+  validates :identifier_stable, presence: { message: "can't be blank. At least use a temporary identifier, next field." }, unless: -> {identifier_temp.present?}
 
   def self.types
-    %w(Archive Collection Folder Letter)
+    %w(Archive Collection Folder Letter Contract)
+  end
+  
+  def name_tree
+    self_and_ancestors.reverse.map{ |t| t.name }.join(' / ')
   end
 
-  def ident_name
-    self_and_ancestors.reverse.map{ |t| t.identifier_stable }.join(' / ')
+  def name
+    read_attribute(:identifier_stable).presence || ">#{identifier_temp}<"
+  end
+
+  def slug_name
+    ([parent.present? ? parent.self_and_ancestors.reverse.map{ |t| t.read_attribute(:identifier_stable).presence || t.friendly_id } : ''] + [identifier_stable]).join(' / ')
   end
 
   scope :archives, -> { where(type: 'Archive') } 
@@ -30,7 +41,7 @@ class Subject < ApplicationRecord
     direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
     case sort_option.to_s
     when /^ident_name_/
-      [{ id: direction.to_sym, parent_id: direction.to_sym }]
+      { slug: direction.to_sym }
     when /^created_at_/
       { created_at: direction.to_sym }
     else
@@ -53,4 +64,16 @@ class Subject < ApplicationRecord
     end
   end
 
+  def should_generate_new_friendly_id?
+    identifier_stable_changed? || super
+  end
+
+  def reslug_descendants #if identifier_stable_changed?
+    descendants.each do |child|
+      child.slug = nil
+      child.save
+    end
+  end
+
 end
+

@@ -7,9 +7,9 @@
   <div class="list-group">
     <% subjects.each do |subject| %>
       <%= link_to subject_path(subject), remote: !browser.device.mobile?, class: "list-group-item" do %>
-        <%= content_tag :div, style: "#{'padding-left:'+(15*subject.depth).to_s+'px' if params[:search].blank?}" do %>
+        <%= content_tag :div, style: "#{'padding-left:'+(10*subject.depth).to_s+'px' if params[:search].blank?}" do %>
           <%= fa_icon(subject.try(:icon)) %>
-          <strong><%= subject.ident_name %></strong>
+          <strong><%= subject.name_tree %></strong>
           <%= content_tag :span, subject.descendants.count, class: 'pull-right' %>
           <br/>
           <%= subject.type %>

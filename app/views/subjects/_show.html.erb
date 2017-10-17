@@ -6,7 +6,7 @@
       <%= content_tag :p, fa_icon(subject.icon)+' '+link_to(subject.type, subjects_path('search': subject.type)) %>
 
       <%= link_to(fa_icon("edit", text: 'Edit'), sti_subject_path(subject.type, subject, :edit), class: 'btn btn-sm btn-warning pull-right', style: 'margin-top: 5px;') if can? :edit, subject %>
-      <%= content_tag :h3, link_to("#{subject.ident_name}", sti_subject_path(subject.type, subject)) %>
+      <%= content_tag :h3, link_to("#{subject.name_tree}", sti_subject_path(subject.type, subject)) %>
   
       <table class="table table-striped">
         <tbody>
@@ -14,7 +14,7 @@
             <%= content_tag :tr do %>
               <th><%= k.humanize %>:</th>
               <td><%= link_to v, subjects_path(search: v) %></td>
-            <% end %>
+            <% end if v.present? %>
           <% end if subject.type_properties %>
 
         </tbody>

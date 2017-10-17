@@ -1,4 +1,4 @@
-<% title "#{@subject.ident_name}" %>
+<% title "#{@subject.name_tree}" %>
 
 <% content_for(:buttons) do %>
   <%= link_to sti_subject_path(@subject.type, @subject, :edit), class: 'btn btn-warning' do %>
@@ -15,22 +15,21 @@
 <div class="row">
   <div class="col-md-12">
     <ol class="breadcrumb">
-      <%= content_tag :li, link_to('All', sti_subject_path) %>      
+      <%= content_tag :li, link_to('All objects', subjects_path) %>      
       <% @subject.ancestors.reverse.each do |e| %>
-        <%= content_tag :li, link_to(e.identifier_stable, e) %>
+        <%= content_tag :li, link_to(e.name, e) %>
       <% end %>
-      <%= content_tag :li, @subject.identifier_stable, class: 'active' %>
+      <%= content_tag :li, @subject.name, class: 'active' %>
     </ol>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-7">
-    <%= content_tag :div, id: "object-#{@subject.id}", style: 'padding-top:10px;padding-bottom:20px;' do %>
+    <%= content_tag :div, id: "object-#{@subject.id}", style: 'padding-top:10px;padding-bottom:10px;' do %>
       <%= content_tag :h3, class: 'text-muted' do %>
         <%= fa_icon(@subject.icon) %>
-        <%= @subject.identifier_stable %>
-        <%= content_tag :span, link_to(fa_icon('link', text: subject_url(@subject)), subject_url(@subject), class: 'pull-right'), style: 'font-size:.5em;' %> 
+        <%= @subject.name %>
       <% end %>
       <%= content_tag :p, @subject.remarks, class: 'text-muted' if @subject.remarks %>
       <table class="table table-striped">
@@ -78,7 +77,8 @@
 
         <div class="tab-content">
           <%= content_tag :div, id: 'identity', role: 'tabpanel', class: 'tab-pane active' do %>
-            <%= content_tag :div, class: "thumbnail" do %>
+            
+            <%= content_tag :div, class: "", style: 'padding-top:20px;' do %>
 
             <% end %>
 
@@ -86,9 +86,12 @@
               <tbody>
                   <tr>
                     <th>Ident:</th>
-                    <td><%= @subject.ident_name %></td>
+                    <td><%= @subject.name_tree %></td>
                   </tr>
-       
+                  <tr>
+                    <th>Self:</th>
+                    <td><%= link_to fa_icon('link', text: subject_url(@subject)), subject_url(@subject) %> </td>
+                  </tr>
               </tbody>
             <% end %>
           <% end %>

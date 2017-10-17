@@ -8,7 +8,7 @@ class Folder < Subject
     content_count: :string
 
   def self.subtypes
-    %w(Letter)
+    %w(Letter Contract)
   end
 
   def self.jsonb_attributes

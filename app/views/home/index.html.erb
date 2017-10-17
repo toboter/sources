@@ -19,7 +19,7 @@
 
 <div class="row" style="margin:60px 0;">
   <%= content_tag :div, class: 'col-md-4' do %>
-    <%= pie_chart Archive.all.map{|a| [a.ident_name, a.descendants.count] }.to_h %>
+    <%= pie_chart Archive.all.map{|a| [a.name, a.descendants.count] }.to_h %>
   <% end %>
   <%= content_tag :div, class: 'col-md-8' do %>
     <%= column_chart Subject.group(:type).count %>
@@ -30,10 +30,3 @@
     <% end %>
   <% end if @tags %>
 </div>
-
-https://devblast.com/b/single-table-inheritance-with-rails-4-part-1/ <br>
-
-http://yousefourabi.com/blog/2014/03/rails-postgresql/ <br>
-http://nandovieira.com/using-postgresql-and-jsonb-with-ruby-on-rails <br>
-
-https://github.com/jasonlong/geo_pattern -> babili

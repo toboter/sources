@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :collections, controller: 'subjects', type: 'Collection', concerns: :commentable
   resources :folders, controller: 'subjects', type: 'Folder', concerns: :commentable
   resources :letters, controller: 'subjects', type: 'Letter', concerns: :commentable
+  resources :contracts, controller: 'subjects', type: 'Contract', concerns: :commentable
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do

@@ -1,23 +1,19 @@
-# Archiv
+# Brief
 
-class Archive < Subject
+class Contract < Subject
   jsonb_accessor :type_properties,
-    title: :string,
-    holder: :string,
-    contact: :text    
-
+    one: :string,
+    two: :string
 
   def self.subtypes
-    %w(Collection Folder Letter Contract)
+    %w()
   end
 
   def self.jsonb_attributes
-    # self.attribute_names
     jsonb_store_key_mapping_for_type_properties.map{|j| j[0].to_sym}
   end
 
   def icon
-    'institution'
+    'file'
   end
-
 end

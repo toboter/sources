@@ -8,7 +8,7 @@ class Letter < Subject
     sent_at: :date
 
   def self.subtypes
-    %w()
+    %w(Contract)
   end
 
   def self.jsonb_attributes

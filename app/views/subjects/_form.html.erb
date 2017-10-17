@@ -6,7 +6,7 @@
     <%= f.input :type, disabled: true %>
     <%= f.input :parent_id, 
       collection: Subject.all-@subject.descendants, 
-      label_method: :ident_name, 
+      label_method: :name_tree, 
       value_method: :id,
       selected: @subject.parent_id,
       include_blank: true %>

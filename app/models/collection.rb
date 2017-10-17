@@ -6,7 +6,7 @@ class Collection < Subject
     description: :text
 
   def self.subtypes
-    %w(Folder Letter)
+    %w(Folder Letter Contract)
   end
 
   def self.jsonb_attributes
