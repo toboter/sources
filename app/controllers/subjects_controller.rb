@@ -5,7 +5,7 @@ class SubjectsController < ApplicationController
   # GET /subjects
   # GET /subjects.json
   def index
-    sort_order = Subject.sorted_by(params[:sorted_by].presence || 'ident_name_asc')
+    sort_order = Subject.sorted_by(params[:sorted_by].presence || 'ident_name_asc') if Subject.any?
     @subjects = Subject
       .visible_for(current_user)
       .search (params[:search].presence || '*'), page: params[:page], per_page: session[:per_page], order: sort_order
