@@ -6,9 +6,15 @@ class SubjectsController < ApplicationController
   # GET /subjects.json
   def index
     sort_order = Subject.sorted_by(params[:sorted_by].presence || 'ident_name_asc') if Subject.any?
+    query = params[:search]
+    fields = nil
+    # if params[:search]
+    #   query = params[:search].split(':').last.presence || params[:search]
+    #   fields = [params[:search].split(':').first]
+    # end
     @subjects = Subject
       .visible_for(current_user)
-      .search (params[:search].presence || '*'), page: params[:page], per_page: session[:per_page], order: sort_order
+      .search (query.presence || '*'), fields: fields, page: params[:page], per_page: session[:per_page], order: sort_order
 
     respond_to do |format|
       format.html
