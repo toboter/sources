@@ -13,7 +13,8 @@ class Api::V1::SourcesController < ActionController::API
   end
   
   def search
-    render json: Subject.visible_for(@user).search(params[:q]), each_serializer: SourceSerializer
+    @visible_subjects_ids = Subject.visible_for(@user).all.ids
+    render json: Subject.search(params[:q], where: {id: @visible_subjects_ids}), each_serializer: SourceSerializer
   end
 
   private

@@ -1,6 +1,9 @@
 class SubjectsController < ApplicationController
   before_action :set_type
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
+
+  load_and_authorize_resource
+  skip_load_resource only: :index
+  skip_authorize_resource only: :index
 
   # GET /subjects
   # GET /subjects.json
@@ -12,9 +15,10 @@ class SubjectsController < ApplicationController
     #   query = params[:search].split(':').last.presence || params[:search]
     #   fields = [params[:search].split(':').first]
     # end
+    @visible_subjects_ids = Subject.visible_for(current_user).all.ids
     @subjects = Subject
-      .visible_for(current_user)
-      .search (query.presence || '*'), fields: fields, page: params[:page], per_page: session[:per_page], order: sort_order
+      .search (query.presence || '*'), where: {id: @visible_subjects_ids}, page: params[:page], per_page: session[:per_page], order: sort_order
+      
 
     respond_to do |format|
       format.html
@@ -88,11 +92,6 @@ class SubjectsController < ApplicationController
 
     def type_class 
       type.constantize 
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_subject
-      @subject = Subject.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
