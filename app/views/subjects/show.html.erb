@@ -107,8 +107,17 @@
       </div>
     </div>
 
-    <%= content_tag :div, id: "show-target", data: {spy: 'affix', 'offset-top': "400"} do %>
-    <% end if !browser.device.mobile? %>
+    <%= content_tag :div, id: "similar-objects" do %>
+      <h4>Similar objects</h4>
+      <div class="list-group">
+        <% @subject.similar.each do |subject| %>
+          <%= link_to subject, class: 'list-group-item' do %>
+            <%= subject.name_tree %><br>
+            <small><%= subject.type %></small>
+          <% end %>
+        <% end %>
+      </div>
+    <% end if @subject.similar.any? %>
   </div>
 
 </div>

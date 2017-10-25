@@ -15,6 +15,10 @@ class Subject < ApplicationRecord
   def self.types
     %w(Archive Collection Folder Letter Contract)
   end
+
+  def self.all_jsonb_attributes
+    types.map{ |t| t.constantize.jsonb_attributes }.flatten.uniq
+  end
   
   def name_tree
     self_and_ancestors.reverse.map{ |t| t.name }.join(' / ')

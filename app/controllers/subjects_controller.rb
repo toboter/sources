@@ -2,7 +2,7 @@ class SubjectsController < ApplicationController
   before_action :set_type
 
   load_and_authorize_resource
-  skip_load_resource only: :index
+  skip_load_resource only: [:index, :create]
   skip_authorize_resource only: :index
 
   # GET /subjects
@@ -10,14 +10,22 @@ class SubjectsController < ApplicationController
   def index
     sort_order = Subject.sorted_by(params[:sorted_by].presence || 'ident_name_asc') if Subject.any?
     query = params[:search]
-    fields = nil
+    if params[:filters]
+      raise params[:filters]
+    end
+    # .to_sym.presence || Subject.all_jsonb_attributes+Subject.column_names
     # if params[:search]
     #   query = params[:search].split(':').last.presence || params[:search]
     #   fields = [params[:search].split(':').first]
     # end
     @visible_subjects_ids = Subject.visible_for(current_user).all.ids
     @subjects = Subject
-      .search (query.presence || '*'), where: {id: @visible_subjects_ids}, page: params[:page], per_page: session[:per_page], order: sort_order
+      .search (query.presence || '*'), 
+        where: {id: @visible_subjects_ids},
+        page: params[:page], 
+        per_page: session[:per_page], 
+        order: sort_order,
+        aggs: [:type]
       
 
     respond_to do |format|

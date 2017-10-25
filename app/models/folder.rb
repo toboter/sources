@@ -5,7 +5,8 @@ class Folder < Subject
     title: :string,
     creator: :string,
     year: :string,
-    content_count: :string
+    content_count: :string,
+    archive_call_number: :string
 
   def self.subtypes
     %w(Letter Contract)
